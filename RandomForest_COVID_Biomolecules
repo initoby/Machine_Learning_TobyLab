@@ -1,0 +1,90 @@
+#Name training and testing data sets. Each of these data sets contains a column identifying a molecule as belonging to one of two classes: 'Control' or 'Exp' (i.e. Experimental). The other 25 columns contain values for different chemical properties. 
+train <- read.csv("covid_training_1.csv", stringsAsFactors = FALSE)
+test <- read.csv("covid_testing_1.csv", stringsAsFactors = FALSE)
+data <- read.csv("data.csv", stringsAsFactors = FALSE)
+
+#Find out how many rows and columns are in each data set.
+dim(train)
+dim(test)
+dim(data)
+
+# Create a normalize function and use it to normalize both data sets for columns containing numbers. The first column, 'Status', contains character strings, so we apply the normalize function beginning on the second column.
+min_max_norm <- function(x) {
+  (x - min(x)) / (max(x) - min(x))
+}
+train_n <- as.data.frame(lapply(train[2:26], min_max_norm))
+test_n <- as.data.frame(lapply(test[2:26], min_max_norm))
+data_n <- as.data.frame(lapply(data[2:26], min_max_norm))
+
+#Add the original 'Status' column back to each data set, and change these column's structure from Characters to Factor.
+train_name <- train[1]
+training <- cbind(train_name, train_n)
+training[, 'Status'] <- as.factor( training[, 'Status'] )
+str(training)
+
+test_name <- test[1]
+testing <- cbind(test_name, test_n)
+testing[, 'Status'] <- as.factor( testing[, 'Status'] )
+str(testing)
+
+data_name <- data[1]
+data1 <- cbind(data_name, data_n)
+data1[, 'Status'] <- as.factor( data1[, 'Status'] )
+str(data1)
+
+
+#Check that the columns have been added. 
+dim(training)
+dim(testing)
+dim(data1)
+
+#Delete specific irrelevant features from data sets. Deleting these columns has been determined to improve the accuracy of the model. Omit these codes if you do not want to remove any features from consideration.
+training[c(5, 18, 23, 21, 26, 24)] <- list(NULL)
+testing[c(5, 18, 23, 21, 26, 24)] <- list(NULL)
+data1[c(5, 18, 23, 21, 26, 24)] <- list(NULL)
+
+# Retrieve Random Forest package from library.
+library(randomForest)
+
+#Run random forest algorithm using training data.
+set.seed(25)
+rf <- randomForest(
+  Status ~ .,
+  data = training)
+
+#Display cross table of random forest algorithm.
+print(rf)
+library(party)
+
+#Display the importance of each feature in the classification in terms of Mean Decrease Gini Index.
+print(importance(rf,type = 2)) 
+
+#Visualize the relative importance of features in the classification.
+varImpPlot(rf)
+
+#Visualize the relationship between error and number of trees created.
+plot(rf)
+
+#Visualize the margin of individual classifications.
+plot(margin(rf))
+
+#Use the model to classify the testing data set. The number 1 indicates the target variable is 'Status', which is located in column 1.
+pred <- predict(rf, newdata = testing[-1])
+
+#Show the individual predictions.
+print(pred)
+
+#Show a cross table for the model's classification of the testing data set.
+cm = table(testing[,1], pred)
+print(cm)
+
+
+#Use the model to classify the larger data1 data set, originally called "data.csv".
+pred2 <- predict(rf, newdata = data1[-1])
+
+#Show a cross table for the model's classification of the larger data1 data set, originally called "data.csv". 
+cm2 = table(data1[,1], pred2)
+print(cm2)
+
+#Create a csv file containing the classification predictions. Note that it will be necessary to match the predictions outputs with the ID numbers from the original csv files.
+write.csv(pred2, file = "C:\\Users\\afrok\\Desktop\\covid_ML_exp_1.csv", row.names=TRUE)
