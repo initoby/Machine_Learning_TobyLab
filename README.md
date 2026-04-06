@@ -1,4 +1,5 @@
 Machine Learning Projects
+# Collaborators: Dr Renita Murimi, Nneoma Okoli
 # Public health, AI, modeling and decision making
 # Advisories are important policy tools used in various fields to prevent undesirable behaviors and outcomes. They are commonly found in:
 Government-issued travel advisories
