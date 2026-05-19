@@ -5,6 +5,13 @@ STEPS for Mini-Hackathon
 4. Create a free account for the alphafold webserver using the link here: https://alphafold.com/
 5. Begin to work on your tasks
 6. Feel free to utilize any online tool/resource that would be helpful in completing your tasks; a list of some options is provided for you on page 2 of the activity handout; also linked here: https://drive.google.com/file/d/16-pc5Q7aTQbNqcsIaWpFoA7-9DXQmTBo/view?usp=drive_link
-7. Once your activity is complete, prepare a short slide presentation (~10 slides) that summarizes the results from what your group has found given the activity instructions and your steps taken to solve the problem.
+7. Once your activity is complete, prepare a short slide presentation (~10 slides) that summarizes the results from what your group has found given the activity instructions and your steps taken to solve the problem. This will be shared with the class!
+
 ***Tips***
-AlphaFold 3 Confidence Metrics Viewer or the PAE Viewer will allow you to perform some post-modeling analysis along with assessment of all the other metrics provided by the AlphaFold tool.
+--AlphaFold 3 Confidence Metrics Viewer or the PAE Viewer will allow you to perform some post-modeling analysis along with assessment of all the other metrics provided by the AlphaFold tool.
+--Find the best model; Look inside the summary files in order to figure out which of the models has the highest score. 
+--Assess your (Predicted Aligned Error-PAE): This will appear as a massive grid (matrix) mapping how much error AlphaFold expects between any position $A$ and position $B$ in your protein.
+--If a region has a low PAE score (looks like a dark, solid block on a PAE plot), you can confidently trust the relative orientation of those domains. 
+If it's a bright, high-error zone, AlphaFold is telling you, "I know what these domains look like individually, but I have no idea how they sit next to each other."
+--The "Predicted TM-score" denotes a score from 0 to 1 measuring the global structural accuracy. Anything above 0.5 means the overall fold is likely correct.
+--"Interface pTM" score: If your sequence has multiple chains or interacting molecules, this scores how confident AlphaFold is in the interaction interface (0.6 to 0.8 is a gray area); >0.8 means highly confident.
