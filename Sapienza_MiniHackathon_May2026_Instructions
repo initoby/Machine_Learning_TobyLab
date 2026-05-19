@@ -5,4 +5,6 @@ STEPS for Mini-Hackathon
 4. Create a free account for the alphafold webserver using the link here: https://alphafold.com/
 5. Begin to work on your tasks
 6. Feel free to utilize any online tool/resource that would be helpful in completing your tasks; a list of some options is provided for you on page 2 of the activity handout; also linked here: https://drive.google.com/file/d/16-pc5Q7aTQbNqcsIaWpFoA7-9DXQmTBo/view?usp=drive_link
-6. Once your activity is complete, prepare a short slide presentation (~10 slides) that summarizes the results from what your group has found given the activity instructions and your steps taken to solve the problem.
+7. Once your activity is complete, prepare a short slide presentation (~10 slides) that summarizes the results from what your group has found given the activity instructions and your steps taken to solve the problem.
+***Tips***
+AlphaFold 3 Confidence Metrics Viewer or the PAE Viewer will allow you to perform some post-modeling analysis along with assessment of all the other metrics provided by the AlphaFold tool.
